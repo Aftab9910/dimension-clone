@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion'
+import { Zap, Palette, Accessibility } from 'lucide-react'
+const MotionDiv = motion.div;
+
 
 const FEATURE_ITEMS = [
-  { title: 'Fast Performance', desc: 'Optimized rendering and simple components.' },
-  {  title: 'Beautiful UI', desc: 'Layered gradients, shadows and clean typography.' },
-  { title: 'Accessible', desc: 'Keyboard & screen reader friendly by default.' },
+  {icon: <Zap className="w-6 h-6" />, title: 'Fast Performance', desc: 'Optimized rendering and simple components.' },
+  {icon: <Palette className="w-6 h-6" />, title: 'Beautiful UI', desc: 'Layered gradients, shadows and clean typography.' },
+  {icon: <Accessibility className="w-6 h-6" />,  title: 'Accessible', desc: 'Keyboard & screen reader friendly by default.' },
 ]
 
 const CASE_STUDIES = [
@@ -26,10 +29,11 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-[#071023] via-[#0b1220] to-[#05060a] text-white antialiased">
       {/* Animated background */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <motion.div
+        <MotionDiv
           className="absolute -left-20 top-10 w-[600px] h-[600px] rounded-full blur-3xl opacity-30 bg-gradient-to-tr from-[#00e0ff] to-[#7b61ff]"
           animate={{ x: [0, 40, 0], y: [0, -30, 0], rotate: [0, 10, 0] }}
           transition={{ duration: 12, repeat: Infinity, repeatType: 'reverse' }}
+           
         />
         <motion.div
           className="absolute right-0 -bottom-40 w-[700px] h-[700px] rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-[#ff7bd6] to-[#ffb86b]"
