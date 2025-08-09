@@ -1,11 +1,14 @@
-import { motion } from 'framer-motion'
+// pages/index.tsx
+import React from 'react'
 import { Zap, Palette, Accessibility } from 'lucide-react'
-const MotionDiv = motion.div as typeof motion.div & React.ComponentType<React.HTMLAttributes<HTMLDivElement>>;
+import { motion, HTMLMotionProps } from 'framer-motion'
+
+const MotionDiv = motion.div as React.FC<React.PropsWithChildren<HTMLMotionProps<'div'>>>
 
 const FEATURE_ITEMS = [
-  {icon: <Zap className="w-6 h-6" />, title: 'Fast Performance', desc: 'Optimized rendering and simple components.' },
-  {icon: <Palette className="w-6 h-6" />, title: 'Beautiful UI', desc: 'Layered gradients, shadows and clean typography.' },
-  {icon: <Accessibility className="w-6 h-6" />,  title: 'Accessible', desc: 'Keyboard & screen reader friendly by default.' },
+  { icon: <Zap className="w-6 h-6" />, title: 'Fast Performance', desc: 'Optimized rendering and simple components.' },
+  { icon: <Palette className="w-6 h-6" />, title: 'Beautiful UI', desc: 'Layered gradients, shadows and clean typography.' },
+  { icon: <Accessibility className="w-6 h-6" />, title: 'Accessible', desc: 'Keyboard & screen reader friendly by default.' },
 ]
 
 const CASE_STUDIES = [
@@ -32,9 +35,8 @@ export default function Home() {
           className="absolute -left-20 top-10 w-[600px] h-[600px] rounded-full blur-3xl opacity-30 bg-gradient-to-tr from-[#00e0ff] to-[#7b61ff]"
           animate={{ x: [0, 40, 0], y: [0, -30, 0], rotate: [0, 10, 0] }}
           transition={{ duration: 12, repeat: Infinity, repeatType: 'reverse' }}
-           
         />
-        <motion.div
+        <MotionDiv
           className="absolute right-0 -bottom-40 w-[700px] h-[700px] rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-[#ff7bd6] to-[#ffb86b]"
           animate={{ x: [0, -60, 0], y: [0, 40, 0], rotate: [0, -8, 0] }}
           transition={{ duration: 14, repeat: Infinity, repeatType: 'reverse' }}
@@ -67,7 +69,11 @@ export default function Home() {
             </motion.div>
             <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}>
               <div className="rounded-xl overflow-hidden shadow-2xl p-4 bg-white/5">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=60" alt="mock" className="w-full h-72 md:h-96 object-cover rounded-md" />
+                <img
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=60"
+                  alt="mock"
+                  className="w-full h-72 md:h-96 object-cover rounded-md"
+                />
               </div>
             </motion.div>
           </div>
@@ -77,7 +83,14 @@ export default function Home() {
         <section id="features" className="py-20">
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
             {FEATURE_ITEMS.map((it, idx) => (
-              <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.12 }} className="bg-white/5 rounded-xl p-6">
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.12 }}
+                className="bg-white/5 rounded-xl p-6"
+              >
                 <div className="h-12 w-12 flex items-center justify-center bg-white/10 rounded-md mb-4">{it.icon}</div>
                 <h3 className="font-semibold mb-2">{it.title}</h3>
                 <p className="text-gray-300 text-sm">{it.desc}</p>
@@ -91,11 +104,28 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-6 space-y-16">
             {CASE_STUDIES.map((c, i) => (
               <div key={i} className="grid md:grid-cols-2 gap-8 items-center">
-                <motion.img src={c.image} alt={c.title} initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="w-full rounded-lg object-cover h-64" />
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }}>
+                <motion.img
+                  src={c.image}
+                  alt={c.title}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7 }}
+                  className="w-full rounded-lg object-cover h-64"
+                />
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.1 }}
+                >
                   <h3 className="text-2xl font-bold mb-3">{c.title}</h3>
                   <p className="text-gray-300 mb-4">{c.summary}</p>
-                  <ul className="list-disc list-inside text-gray-300">{c.points.map((p, idx) => <li key={idx}>{p}</li>)}</ul>
+                  <ul className="list-disc list-inside text-gray-300">
+                    {c.points.map((p, idx) => (
+                      <li key={idx}>{p}</li>
+                    ))}
+                  </ul>
                 </motion.div>
               </div>
             ))}
@@ -104,7 +134,13 @@ export default function Home() {
 
         {/* Contact */}
         <section id="contact" className="py-16 text-center">
-          <motion.h4 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-2xl font-bold mb-4">
+          <motion.h4
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-2xl font-bold mb-4"
+          >
             Ready to ship your landing page?
           </motion.h4>
           <p className="text-gray-300 mb-6">Get in touch and we’ll help you go live fast.</p>
