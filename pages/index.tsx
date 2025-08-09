@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { Zap, Palette, Accessibility } from 'lucide-react'
-const MotionDiv = motion.div;
-
+const MotionDiv = motion.div as typeof motion.div & React.ComponentType<React.HTMLAttributes<HTMLDivElement>>;
 
 const FEATURE_ITEMS = [
   {icon: <Zap className="w-6 h-6" />, title: 'Fast Performance', desc: 'Optimized rendering and simple components.' },
